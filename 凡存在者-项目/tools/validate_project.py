@@ -73,13 +73,19 @@ def check_source_archive() -> None:
 
 def check_required_entries() -> None:
     required = [
+        "01-原始资料/README.md",
+        "02-Canon/README.md",
         "02-Canon/CANON-唯一真源-v1.0.md",
         "02-Canon/Canon-Change记录.md",
         "02-Canon/权威层级.md",
+        "03-结构化设定/README.md",
         "03-结构化设定/人物圣经-v5.md",
         "03-结构化设定/技术概念总登记表.md",
+        "04-第一卷设计/README.md",
         "04-第一卷设计/第一卷总控.md",
+        "05-正文/README.md",
         "05-正文/第一卷/README.md",
+        "06-审校/README.md",
         "06-审校/第一卷/第一卷-可持续生产基线.md",
         "06-审校/第一卷/第一卷-当前维护队列.md",
         "06-审校/第一卷/外部阅读反馈/README.md",
@@ -93,6 +99,24 @@ def check_required_entries() -> None:
     if canon_files != [ROOT / "02-Canon/CANON-唯一真源-v1.0.md"]:
         names = ", ".join(path.name for path in canon_files) or "none"
         fail(f"formal Canon entry is not unique: {names}")
+
+
+def check_current_production_target() -> None:
+    navigation = (ROOT / "00-项目导航.md").read_text(encoding="utf-8")
+    required_phrases = [
+        "当前唯一生产目标",
+        "第一卷可持续生产基线",
+        "第二卷与第三卷的已提交内容作为后续项目快照保留",
+    ]
+    for phrase in required_phrases:
+        if phrase not in navigation:
+            fail(f"current production target marker missing: {phrase}")
+
+    queue = (ROOT / "06-审校/第一卷/第一卷-当前维护队列.md").read_text(encoding="utf-8")
+    if "有证据触发的维护阶段" not in queue:
+        fail("first-volume maintenance queue is missing evidence-triggered status")
+    if "不虚构第37章" not in queue:
+        fail("first-volume maintenance queue is missing no-chapter-37 guard")
 
 
 def check_chapter_ranges() -> None:
@@ -181,6 +205,7 @@ def check_first_volume_technical_boundaries() -> None:
 def main() -> int:
     check_source_archive()
     check_required_entries()
+    check_current_production_target()
     check_chapter_ranges()
     check_chapter_closures()
     check_markdown_links()
