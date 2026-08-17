@@ -57,6 +57,9 @@ def check_source_archive() -> None:
         "01-原始资料/共享会话原文/v6-篇章调度与关系架构.md": "0902967f2c5d8c362e21514bceeb51b21f6332fa7006bd2e9fd810986cb366c9",
         "01-原始资料/共享会话原文/v7-第一卷36章导演卡.md": "7c0993ef4a22172145fe87ebca3676935f08632510b2c24cb3da9850f6c7f7b8",
         "01-原始资料/共享会话原文/共享页面-原始HTML-2026-08-17.html": "a31c3e9d5dddbf39e147dce61dfe5154c368c60c23884466272fe91c79bfcf3b",
+        "01-原始资料/共享会话-完整转录.md": "617e0dd058b0bca3347574f9dfd7f7dbc6824a472dd5a3414ec625dd9e837283",
+        "01-原始资料/原始对话核对回复.md": "60ce5d32d950363f66f674f7d91a36c5dbdd07c4243b587e04bfaddee5c1a1c4",
+        "01-原始资料/缺失与恢复状态/v1-v4-资料状态.md": "d5cf55949ee58bd420955d03ccff6d8db8e3df9bc8776b75fe42cde62efa2851",
     }
     for relative, expected_hash in expected.items():
         path = ROOT / relative
