@@ -89,7 +89,10 @@ def check_required_entries() -> None:
         "06-审校/第一卷/第一卷-可持续生产基线.md",
         "06-审校/第一卷/第一卷-当前维护队列.md",
         "06-审校/第一卷/外部阅读反馈/README.md",
+        "06-审校/第一卷/外部阅读反馈/第一卷-外部审核包.md",
         "06-审校/第一卷/外部阅读反馈/模板.md",
+        "06-审校/第一卷/第一卷-人物弧与关系回归.md",
+        "06-审校/第一卷/第一卷-章节推进链回归.md",
     ]
     for relative in required:
         if not (ROOT / relative).exists():
@@ -117,6 +120,152 @@ def check_current_production_target() -> None:
         fail("first-volume maintenance queue is missing evidence-triggered status")
     if "不虚构第37章" not in queue:
         fail("first-volume maintenance queue is missing no-chapter-37 guard")
+
+
+def check_external_review_boundary() -> None:
+    """Protect the reviewer handoff without judging literary quality."""
+
+    kit = ROOT / "06-审校/第一卷/外部阅读反馈/第一卷-外部审核包.md"
+    entry = ROOT / "06-审校/第一卷/外部阅读反馈/README.md"
+    template = ROOT / "06-审校/第一卷/外部阅读反馈/模板.md"
+    kit_text = kit.read_text(encoding="utf-8")
+    entry_text = entry.read_text(encoding="utf-8")
+    template_text = template.read_text(encoding="utf-8")
+
+    kit_phrases = [
+        "只读第1—36章正文",
+        "不需要打开维护队列",
+        "第1—36章正文直达清单",
+        "无剧透简介",
+    ]
+    for phrase in kit_phrases:
+        if phrase not in kit_text:
+            fail(f"external review kit marker missing: {phrase}")
+
+    entry_phrases = [
+        "第一卷外部审核包",
+        "首次阅读不需要打开维护队列",
+        "作者侧复核",
+    ]
+    for phrase in entry_phrases:
+        if phrase not in entry_text:
+            fail(f"external review entry marker missing: {phrase}")
+
+    template_fields = [
+        "我实际观察到的内容",
+        "我的推测",
+        "我的评价",
+        "阅读行为",
+        "影响范围",
+        "严重度理由",
+        "是否建议修改",
+    ]
+    for field in template_fields:
+        if field not in template_text:
+            fail(f"external review template field missing: {field}")
+
+    if "### 事实、推测与评价必须分开" not in template_text:
+        fail("external review template is missing the fact/speculation/evaluation heading")
+    issue_header = next(
+        (line for line in template_text.splitlines() if line.startswith("|") and "章节 / 场景" in line),
+        "",
+    )
+    for column in ["类型", "严重度", "证据或短引", "我的建议"]:
+        if column not in issue_header:
+            fail(f"external review template issue table is missing column: {column}")
+
+    def section_between(text: str, heading: str) -> str:
+        pattern = rf"(?ms)^### {re.escape(heading)}\s*$([\s\S]*?)(?=^### |\Z)"
+        match = re.search(pattern, text)
+        if not match:
+            fail(f"external review kit section missing: {heading}")
+            return ""
+        return match.group(1)
+
+    def linked_paths(text: str, base: Path) -> list[Path | None]:
+        link_pattern = re.compile(r"\]\((<[^>]+>|[^)]+)\)")
+        paths: list[Path | None] = []
+        for raw in link_pattern.findall(text):
+            target = raw[1:-1] if raw.startswith("<") and raw.endswith(">") else raw
+            target = target.split("#", 1)[0].split("?", 1)[0]
+            if not target or "://" in target or target.startswith("mailto:"):
+                paths.append(None)
+                continue
+            paths.append((base / unquote(target)).resolve())
+        return paths
+
+    prose_directory = ROOT / "05-正文/第一卷"
+    prose_files = sorted(prose_directory.glob("[0-9][0-9]-*.md"))
+    expected_prose = [path.resolve() for path in prose_files]
+
+    synopsis = re.search(
+        r"(?ms)^<!-- synopsis:start -->\s*(.*?)\s*^<!-- synopsis:end -->$",
+        kit_text,
+    )
+    if not synopsis:
+        fail("external review kit is missing a bounded synopsis block")
+    else:
+        synopsis_text = synopsis.group(1)
+        for phrase in ["软件工程师", "魔法异世界", "无法看清"]:
+            if phrase not in synopsis_text:
+                fail(f"external review synopsis is missing safe premise marker: {phrase}")
+        spoiler_terms = [
+            "OpenCV",
+            "Canny",
+            "Alpha",
+            "Copy",
+            "Mat",
+            "View",
+            "世界原图",
+            "观察者",
+            "谁定义计算规则",
+        ]
+        for term in spoiler_terms:
+            if re.search(rf"(?<!\w){re.escape(term)}(?!\w)", synopsis_text):
+                fail(f"external review synopsis contains protected spoiler term: {term}")
+
+    first_read = section_between(kit_text, "第一次阅读：只读正文")
+    first_read_forbidden = [
+        ROOT / "02-Canon",
+        ROOT / "03-结构化设定",
+        ROOT / "04-第一卷设计",
+        ROOT / "05-正文/第二卷",
+        ROOT / "05-正文/第三卷",
+    ]
+    feedback_root = (ROOT / "06-审校/第一卷/外部阅读反馈").resolve()
+    for target in linked_paths(first_read, kit.parent):
+        if target is None:
+            continue
+        if any(target == forbidden or forbidden in target.parents for forbidden in first_read_forbidden):
+            fail(f"first-reading section links to author-side or later-volume material: {target.relative_to(ROOT)}")
+        if ROOT / "06-审校" in target.parents and feedback_root not in target.parents:
+            fail(f"first-reading section links outside the feedback handoff: {target.relative_to(ROOT)}")
+
+    direct_list = section_between(kit_text, "第1—36章正文直达清单")
+    direct_targets = linked_paths(direct_list, kit.parent)
+    if len(direct_targets) != len(expected_prose):
+        fail(
+            "external review direct prose list must contain exactly "
+            f"{len(expected_prose)} links, got {len(direct_targets)}"
+        )
+    elif direct_targets != expected_prose:
+        fail("external review direct prose list is not exactly ordered from chapter 1 through chapter 36")
+
+    # Keep the broader check as a safety net for accidental deletion outside the
+    # designated ordered list, while the exact list check above protects order
+    # and volume boundaries.
+    link_pattern = re.compile(r"\]\((<[^>]+>|[^)]+)\)")
+    linked_targets = set()
+    for raw in link_pattern.findall(kit_text):
+        target = raw[1:-1] if raw.startswith("<") and raw.endswith(">") else raw
+        target = target.split("#", 1)[0].split("?", 1)[0]
+        if not target or "://" in target or target.startswith("mailto:"):
+            continue
+        linked_targets.add((kit.parent / unquote(target)).resolve())
+
+    for path in sorted(prose_directory.glob("[0-9][0-9]-*.md")):
+        if path.resolve() not in linked_targets:
+            fail(f"external review kit missing direct prose link: {path.name}")
 
 
 def check_chapter_ranges() -> None:
@@ -209,6 +358,7 @@ def main() -> int:
     check_chapter_ranges()
     check_chapter_closures()
     check_markdown_links()
+    check_external_review_boundary()
     check_first_volume_technical_boundaries()
     if ERRORS:
         print(f"FAIL: {len(ERRORS)} issue(s)")
