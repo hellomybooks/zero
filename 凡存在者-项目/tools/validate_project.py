@@ -79,6 +79,8 @@ def check_required_entries() -> None:
         "05-正文/第一卷/README.md",
         "06-审校/第一卷/第一卷-可持续生产基线.md",
         "06-审校/第一卷/第一卷-当前维护队列.md",
+        "06-审校/第一卷/外部阅读反馈/README.md",
+        "06-审校/第一卷/外部阅读反馈/模板.md",
     ]
     for relative in required:
         if not (ROOT / relative).exists():
