@@ -39,6 +39,14 @@ def chapter_numbers(directory: Path) -> list[int]:
     return sorted(numbers)
 
 
+def chapter_stems(directory: Path) -> set[str]:
+    return {
+        path.stem
+        for path in directory.glob("*.md")
+        if re.match(r"^\d{2}-", path.name)
+    }
+
+
 def check_source_archive() -> None:
     expected = {
         "01-原始资料/共享会话原文/v1-Story-Bible-原始版.md": "1ba41891ad25948d99d1b4244af5bdc7821d6b101f35d34ec0fa16a32eb8b1e1",
@@ -76,6 +84,11 @@ def check_required_entries() -> None:
         if not (ROOT / relative).exists():
             fail(f"missing required project entry: {relative}")
 
+    canon_files = sorted((ROOT / "02-Canon").glob("CANON-*.md"))
+    if canon_files != [ROOT / "02-Canon/CANON-唯一真源-v1.0.md"]:
+        names = ", ".join(path.name for path in canon_files) or "none"
+        fail(f"formal Canon entry is not unique: {names}")
+
 
 def check_chapter_ranges() -> None:
     volumes = [
@@ -91,6 +104,25 @@ def check_chapter_ranges() -> None:
         expected = list(range(first, last + 1))
         if actual != expected:
             fail(f"chapter range mismatch: {label}: expected {expected}, got {actual}")
+
+
+def check_chapter_closures() -> None:
+    volumes = [
+        ("第一卷", ROOT / "04-第一卷设计/章节卡", ROOT / "05-正文/第一卷", ROOT / "06-审校/第一卷", 1, 36),
+        ("第二卷", ROOT / "04-第二卷设计/章节卡", ROOT / "05-正文/第二卷", ROOT / "06-审校/第二卷", 37, 72),
+        ("第三卷", ROOT / "04-第三卷设计/章节卡", ROOT / "05-正文/第三卷", ROOT / "06-审校/第三卷", 73, 87),
+    ]
+    for label, cards, prose, audits, first, last in volumes:
+        expected_numbers = set(range(first, last + 1))
+        card_stems = chapter_stems(cards)
+        prose_stems = chapter_stems(prose)
+        if card_stems != prose_stems:
+            missing_prose = sorted(card_stems - prose_stems)
+            missing_cards = sorted(prose_stems - card_stems)
+            fail(f"chapter card/prose mismatch: {label}: missing prose={missing_prose}, missing cards={missing_cards}")
+        audit_numbers = set(chapter_numbers(audits))
+        if audit_numbers != expected_numbers:
+            fail(f"chapter audit coverage mismatch: {label}: expected {sorted(expected_numbers)}, got {sorted(audit_numbers)}")
 
 
 def check_markdown_links() -> None:
@@ -145,6 +177,7 @@ def main() -> int:
     check_source_archive()
     check_required_entries()
     check_chapter_ranges()
+    check_chapter_closures()
     check_markdown_links()
     check_first_volume_technical_boundaries()
     if ERRORS:
