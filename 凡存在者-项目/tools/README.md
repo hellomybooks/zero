@@ -14,6 +14,7 @@ python3 tools/validate_project.py
 - Canon、结构化设定、第一卷维护入口等必需文件是否存在。
 - `02-Canon/` 是否只有一个正式 Canon 入口。
 - 原始资料、Canon、结构化设定、第一卷设计、正文和审校六个层级是否都有入口 README，且项目导航仍将第一卷标为当前生产目标。
+- 仓库根目录的 README、AGENTS、STATUS、CANON orientation 和 CORE-SEED 冷启动入口是否存在且保留关键导航标记。
 - 第一卷、第二卷、第三卷章节卡与正文编号是否连续且文件名对应。
 - 三卷每一章是否至少有一份章级审校记录；第一卷第1—2章的历史通用命名也按章节号计入覆盖。
 - Markdown 相对链接是否指向存在的文件。

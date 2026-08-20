@@ -15,6 +15,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = ROOT.parent
 ERRORS: list[str] = []
 
 
@@ -102,6 +103,31 @@ def check_required_entries() -> None:
     if canon_files != [ROOT / "02-Canon/CANON-唯一真源-v1.0.md"]:
         names = ", ".join(path.name for path in canon_files) or "none"
         fail(f"formal Canon entry is not unique: {names}")
+
+
+def check_cold_start_entries() -> None:
+    """Protect the additive human/AI entry layer at the repository root."""
+
+    entries = ["README.md", "AGENTS.md", "STATUS.md", "CANON.md", "CORE-SEED.md"]
+    for name in entries:
+        if not (REPO_ROOT / name).is_file():
+            fail(f"missing repository cold-start entry: {name}")
+
+    checks = {
+        "README.md": ["Start here", "STATUS.md", "AGENTS.md", "CANON.md", "CORE-SEED.md"],
+        "AGENTS.md": ["Cold start", "Authority order", "validate_project.py"],
+        "STATUS.md": ["Current production state", "Volume I", "Issue #1", "Issue #2", "Issue #3"],
+        "CANON.md": ["not a second Canon", "CANON-唯一真源-v1.0.md", "Core invariants"],
+        "CORE-SEED.md": ["Core Seed — The World Genesis Genome", "A representation is not reality"],
+    }
+    for name, phrases in checks.items():
+        path = REPO_ROOT / name
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for phrase in phrases:
+            if phrase not in text:
+                fail(f"repository cold-start entry marker missing: {name}: {phrase}")
 
 
 def check_current_production_target() -> None:
@@ -306,7 +332,8 @@ def check_chapter_closures() -> None:
 def check_markdown_links() -> None:
     link_pattern = re.compile(r"\]\((<[^>]+>|[^)]+)\)")
     relative_links = 0
-    for path in ROOT.rglob("*.md"):
+    markdown_paths = list(ROOT.rglob("*.md")) + list(REPO_ROOT.glob("*.md"))
+    for path in markdown_paths:
         if ".git" in path.parts:
             continue
         text = path.read_text(encoding="utf-8")
@@ -319,7 +346,7 @@ def check_markdown_links() -> None:
             target_path = (path.parent / unquote(target)).resolve()
             if not target_path.exists():
                 fail(f"broken Markdown link: {path.relative_to(ROOT)} -> {target}")
-    print(f"markdown_files={len(list(ROOT.rglob('*.md')))} relative_links={relative_links}")
+    print(f"markdown_files={len(markdown_paths)} relative_links={relative_links}")
 
 
 def check_first_volume_technical_boundaries() -> None:
@@ -354,6 +381,7 @@ def check_first_volume_technical_boundaries() -> None:
 def main() -> int:
     check_source_archive()
     check_required_entries()
+    check_cold_start_entries()
     check_current_production_target()
     check_chapter_ranges()
     check_chapter_closures()
