@@ -4,24 +4,47 @@ This repository is a long-form fiction project, not a software codebase. Preserv
 
 ## Cold start
 
-Do not scan the whole repository on first entry. Read:
+Do **not** scan the whole repository on first entry.
+
+Read in this order:
 
 1. `STATUS.md`
-2. `CANON.md`, then the formal Canon only when the task needs it
-3. only the files required by the current task
+2. `CANON.md`
+3. only the minimum files required by the current task
 
-For a plot-independent story in the same conceptual universe, read `CORE-SEED.md` and do not inherit the current plot by default.
+For the existing novel, `CORE-SEED.md` is optional and normally unnecessary. It is for plot-independent parallel-story experiments, not for continuing the current Ren / Zero storyline.
 
-## Authority order
+## Minimum context by task
 
-1. locked Canon
-2. accepted structured setting
-3. current outline and chapter cards
-4. manuscript facts
-5. review notes and audits
-6. historical source material
+### Writing or revising prose
 
-A lower layer must not silently overwrite a higher layer. Any change to a locked truth, major twist, identity, world rule, or future dependency requires an explicit Canon Change record.
+Read only what the scene needs:
+
+1. `STATUS.md`
+2. `CANON.md`, and the formal Canon when the scene touches a locked truth
+3. the current volume README / controller
+4. the current chapter card
+5. the previous manuscript chapter, plus the next card only when continuity requires it
+6. only the relevant continuity / character-state files
+
+Do not read the entire archive, all previous volumes, or all audits by default.
+
+### Changing outline or long-range structure
+
+Read the formal Canon, the current volume design, the relevant character arcs, and the continuity / foreshadowing records that the change can affect. A major identity, world rule, twist, or future dependency requires an explicit Canon Change record.
+
+### Investigating a conflict or historical source
+
+Follow the formal source/conflict rules in [`凡存在者-项目/02-Canon/权威层级.md`](./凡存在者-项目/02-Canon/权威层级.md) and the Canon Change process. Only then enter `notes/` or `凡存在者-项目/01-原始资料/` as evidence.
+
+## Authority and conflict handling
+
+Do not invent a second authority hierarchy in this file.
+
+- `CANON.md` is the root orientation page.
+- The only formal Canon is the file linked from it.
+- Source conflicts, historical evidence order, and Canon-change rules are governed by [`凡存在者-项目/02-Canon/权威层级.md`](./凡存在者-项目/02-Canon/权威层级.md).
+- Structured setting, outline, chapter cards, manuscript, and review records are task context; they cannot silently overwrite a locked Canon truth.
 
 ## Creative invariants
 
@@ -47,8 +70,12 @@ After a significant prose or structural change, ask:
 4. Did the change spend a future revelation or emotional payoff early?
 5. If technical metaphors were removed, would the human conflict still work?
 
+For high-risk Canon/prose boundaries, use the stricter rule established by the Chapter 36 review: compare **authority requirement → prose's most natural reading → strictest conflict judgment**. "It can be explained away" is not automatically a pass.
+
 Run `python3 凡存在者-项目/tools/validate_project.py` after structural edits. It checks project wiring and source boundaries; it does not judge literary quality.
 
 ## Archive and Git
 
-Treat `notes/` and `凡存在者-项目/01-原始资料/` as historical evidence. Read them only for source recovery or an explicit audit. Preserve historical discussion when fixing an Issue. Keep changes small, inspect the worktree, stage only confirmed paths, and never rewrite prose as a side effect of an architecture migration.
+Treat `notes/` and `凡存在者-项目/01-原始资料/` as historical evidence. Read them only for source recovery or an explicit audit.
+
+Preserve historical discussion when fixing an Issue. Keep changes small and scoped. Never rewrite prose as a side effect of an architecture migration.
