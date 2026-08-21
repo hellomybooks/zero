@@ -1,26 +1,34 @@
-# All Things Have an Edge
+# 《凡存在者，必有其界》
 
-**《凡存在者，必有其界》 / All Things Have an Edge** is a long-form speculative-fantasy project built around one central idea:
+*All Things Have an Edge*
 
-> A representation is useful, but it is not the thing itself.
+一部长篇思辨奇幻小说，计划 **7 卷 / 252 章 / 21 个主要篇章**。核心问题不是“世界是不是一段代码”，而是：我们总要通过观察、描述、分类、地图、记忆与模型来行动，但这些表示从来不等于存在本身。
 
-The current manuscript follows Ren, Zero, Lumi, Sain, Elia, and Nox across a world where perception, classification, mapping, repair, prediction, copying, and shared truth can become forms of power.
+## 当前状态
 
-## Start here
+当前工作重点是**第一卷《白色边缘》的质量与连续性维护**，不是继续制造新章节。第二卷已形成完整生产快照，第三卷已推进到第 87 章快照；更详细的当前状态、下一步与维护边界统一见 [`STATUS.md`](./STATUS.md)。
 
-- **Current state:** [`STATUS.md`](./STATUS.md)
-- **AI / agent instructions:** [`AGENTS.md`](./AGENTS.md)
-- **Canon orientation:** [`CANON.md`](./CANON.md)
-- **Plot-independent world seed:** [`CORE-SEED.md`](./CORE-SEED.md)
-- **Chinese project navigation:** [`凡存在者-项目/00-项目导航.md`](./凡存在者-项目/00-项目导航.md)
-- **Story / manuscript:** [`凡存在者-项目/05-正文/`](./凡存在者-项目/05-正文/)
-- **Volume design:** [`凡存在者-项目/04-第一卷设计/`](./凡存在者-项目/04-第一卷设计/)
-- **Structured setting:** [`凡存在者-项目/03-结构化设定/`](./凡存在者-项目/03-结构化设定/)
-- **Historical source material:** [`凡存在者-项目/01-原始资料/`](./凡存在者-项目/01-原始资料/)
-- **External review ledger:** [GitHub Issues](https://github.com/hellomybooks/zero/issues)
+## 从这里开始
 
-## Authority
+- **只想读小说：** [`凡存在者-项目/05-正文/`](./凡存在者-项目/05-正文/)
+- **第一次接管项目 / 想继续工作：** [`STATUS.md`](./STATUS.md)
+- **AI / Agent 工作规则：** [`AGENTS.md`](./AGENTS.md)
+- **Canon 导航：** [`CANON.md`](./CANON.md)
+- **人物、世界、魔法与连续性：** [`凡存在者-项目/03-结构化设定/README.md`](./凡存在者-项目/03-结构化设定/README.md)
+- **历史来源与原始对话：** [`凡存在者-项目/01-原始资料/`](./凡存在者-项目/01-原始资料/)
+- **外部审阅与阶段决策：** [GitHub Issues](https://github.com/hellomybooks/zero/issues)
 
-`CANON.md` is a short orientation page, not a second Canon. The only formal Canon is the file linked from it. Historical chats, old Story Bible versions, outlines, prose, and review notes cannot silently overwrite that source.
+## 卷设计
 
-If you only want to read the novel, go directly to `凡存在者-项目/05-正文/`. If you want to grow an independent story from the same conceptual DNA, read `CORE-SEED.md` instead of inheriting the current plot.
+- 第一卷《白色边缘》：[`凡存在者-项目/04-第一卷设计/`](./凡存在者-项目/04-第一卷设计/)
+- 第二卷《阈值之城》：[`凡存在者-项目/04-第二卷设计/`](./凡存在者-项目/04-第二卷设计/)
+- 第三卷《不存在的区域》：[`凡存在者-项目/04-第三卷设计/`](./凡存在者-项目/04-第三卷设计/)
+- 七卷宏观结构与人物关系：[`凡存在者-项目/03-结构化设定/篇章调度与关系架构-v6.md`](./凡存在者-项目/03-结构化设定/篇章调度与关系架构-v6.md)
+
+## 权威边界
+
+根目录的 [`CANON.md`](./CANON.md) 只是短导航，不是第二份 Canon。正式唯一真源仍是它所链接的中文 Canon；历史聊天、旧 Story Bible、章节卡、正文和审阅记录都不能静默覆盖正式设定。
+
+## 可选：平行世界实验
+
+[`CORE-SEED.md`](./CORE-SEED.md) 是一个**可选的、与当前剧情解耦的世界基因文档**，用于让另一个智能从相同创作 DNA 长出不同故事。它不是阅读或继续当前小说所必需的冷启动文件，也不替代当前小说的 Canon。
