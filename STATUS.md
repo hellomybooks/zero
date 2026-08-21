@@ -1,42 +1,47 @@
-# Project Status
+# 当前状态 / Project Status
 
-This file describes the current state, not the full project history.
+这个文件只描述**现在**，不保存完整项目历史。历史由 Git、Issues、审校记录和原始资料层承担。
 
-## Project
+## Machine-readable current state
 
-**Title:** 《凡存在者，必有其界》 / *All Things Have an Edge*
-**Planned scale:** 7 volumes / 252 chapters / 21 major arcs
-**Mode:** long-form fiction development with Canon, outline, manuscript, continuity, and review layers
+**Current phase:** Volume I maintenance and external review
+**Current volume:** Volume I — 《白色边缘》 / *White Edges*
+**Current target:** Protect Volume I chapters 1–36 as a reviewed manuscript candidate through evidence-triggered maintenance; do not expand it by inventing new chapters.
+**Next action:** Apply only concrete, evidence-backed fixes from external review, Canon/prose contradiction checks, continuity findings, or approved architecture work.
+**Review blockers:** Boundary Form payoff remains a P2 publication-level observation; precision-splitting as a recurring solution pattern and character-specific language failure remain long-range review items.
 
-## Current production state
+## 项目规模
 
-- **Volume I — 《白色边缘》:** chapters 1–36 drafted and internally reviewed; now in sustainable-baseline and external-review maintenance rather than active expansion.
-- **Volume II — 《阈值之城》:** chapters 37–72 preserved as a completed production snapshot.
-- **Volume III — 《不存在的区域》:** chapters through 87 preserved as a production snapshot; later continuation is not the current task.
-- **Volumes IV–VII:** macro structure exists, but chapter-level production is incomplete.
+- 计划：7 卷 / 252 章 / 21 个主要篇章。
+- 第一卷《白色边缘》：第 1—36 章已完成初稿与内部审校，目前处于可持续基线与外部阅读维护阶段。
+- 第二卷《阈值之城》：第 37—72 章已保存为完整生产快照。
+- 第三卷《不存在的区域》：已保存至第 87 章生产快照；继续第 88 章不是当前任务。
+- 第四—七卷：已有宏观结构，章级生产尚未完成。
 
-The current project focus remains Volume I quality and continuity protection.
+## 当前工作边界
 
-## Recent Issue resolution
+当前优先级是第一卷质量、Canon 一致性和项目可接管性，而不是为了制造进度继续扩写。
 
-- Issue #1 exposed two strict Chapter 36 discrepancies: predictive reflection wording and premature completion language around “I don't know.” Both were corrected and recorded in the dedicated Canon-versus-prose audit.
-- Issue #2 is addressed by this additive cold-start layer: root `README.md`, `AGENTS.md`, `STATUS.md`, and `CANON.md`. The legacy Chinese tree is not being migrated or overwritten.
-- Issue #3's standalone English `CORE-SEED.md` has been merged as an independent document and does not replace story-specific Canon.
+对现有小说进行工作时：
 
-Remaining observations from Issue #1—Boundary Form payoff, precision-splitting as a recurring solution pattern, and character-specific language failure—remain review items, not silent rewrite instructions.
+1. 先读 [`AGENTS.md`](./AGENTS.md) 与 [`CANON.md`](./CANON.md)。
+2. 只加载当前任务所需的最小上下文。
+3. 第一卷修订必须由具体证据触发；没有外部反馈、Canon 冲突或连续性证据时，不主动重写。
+4. 不为第一卷虚构“第37章”，也不把第二、第三卷快照反向写成第一卷真相。
 
-## Safe next actions
+## 当前可安全执行的工作
 
-For the existing novel:
+- 处理明确的外部阅读反馈；
+- 修复已证实的 Canon / 正文冲突；
+- 维护连续性、伏笔和角色状态；
+- 改善仓库冷启动、验证器和导航，但不把架构迁移和正文重写混在同一修改中。
 
-1. Read `AGENTS.md` and `CANON.md`.
-2. Read the current production target and its minimum context.
-3. Use the first-volume maintenance queue and external reader feedback as the change gate.
-4. Do not create Chapter 37 for Volume I or rewrite the manuscript merely to create visible activity.
+## 可选平行实验
 
-For a parallel story:
+[`CORE-SEED.md`](./CORE-SEED.md) 只用于从相同概念 DNA 生长**独立故事**。它不是继续当前小说所需的上下文，也不是当前生产目标。
 
-1. Read `CORE-SEED.md` only.
-2. Build an independent organism before comparing it with the current plot.
+结构修改后运行：
 
-Run `python3 凡存在者-项目/tools/validate_project.py` after structural changes.
+```bash
+python3 凡存在者-项目/tools/validate_project.py
+```
