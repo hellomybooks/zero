@@ -79,3 +79,11 @@ Run `python3 凡存在者-项目/tools/validate_project.py` after structural edi
 Treat `notes/` and `凡存在者-项目/01-原始资料/` as historical evidence. Read them only for source recovery or an explicit audit.
 
 Preserve historical discussion when fixing an Issue. Keep changes small and scoped. Never rewrite prose as a side effect of an architecture migration.
+
+## Git workflow
+
+- `main` is the default local working branch.
+- Do not create persistent local feature branches for ordinary project work.
+- After inspecting the worktree and validating the change, commit directly to `main` and push `main`.
+- Use a temporary review branch only when an external review or merge is explicitly required; after it is merged, return to `main` and remove the stale local and remote branch references when safe.
+- Never leave completed review branches as the local working state.
