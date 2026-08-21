@@ -106,19 +106,18 @@ def check_required_entries() -> None:
 
 
 def check_cold_start_entries() -> None:
-    """Protect the additive human/AI entry layer at the repository root."""
+    """Protect the minimal human/AI entry layer at the repository root."""
 
-    entries = ["README.md", "AGENTS.md", "STATUS.md", "CANON.md", "CORE-SEED.md"]
+    entries = ["README.md", "AGENTS.md", "STATUS.md", "CANON.md"]
     for name in entries:
         if not (REPO_ROOT / name).is_file():
             fail(f"missing repository cold-start entry: {name}")
 
     checks = {
-        "README.md": ["Start here", "STATUS.md", "AGENTS.md", "CANON.md", "CORE-SEED.md"],
-        "AGENTS.md": ["Cold start", "Authority order", "validate_project.py"],
-        "STATUS.md": ["Current production state", "Volume I", "Issue #1", "Issue #2", "Issue #3"],
+        "README.md": ["STATUS.md", "AGENTS.md", "CANON.md", "凡存在者-项目/05-正文/"],
+        "AGENTS.md": ["Cold start", "权威层级.md", "validate_project.py"],
+        "STATUS.md": ["Current phase:", "Current volume:", "Current target:", "Next action:"],
         "CANON.md": ["not a second Canon", "CANON-唯一真源-v1.0.md", "Core invariants"],
-        "CORE-SEED.md": ["Core Seed — The World Genesis Genome", "A representation is not reality"],
     }
     for name, phrases in checks.items():
         path = REPO_ROOT / name
@@ -131,15 +130,23 @@ def check_cold_start_entries() -> None:
 
 
 def check_current_production_target() -> None:
-    navigation = (ROOT / "00-项目导航.md").read_text(encoding="utf-8")
-    required_phrases = [
-        "当前唯一生产目标",
-        "第一卷可持续生产基线",
-        "第二卷与第三卷的已提交内容作为后续项目快照保留",
-    ]
-    for phrase in required_phrases:
-        if phrase not in navigation:
-            fail(f"current production target marker missing: {phrase}")
+    """Treat root STATUS.md as the single machine-readable current-state source."""
+
+    status_path = REPO_ROOT / "STATUS.md"
+    if not status_path.is_file():
+        fail("missing current-state source: STATUS.md")
+        return
+
+    status = status_path.read_text(encoding="utf-8")
+    required_fields = ["Current phase:", "Current volume:", "Current target:", "Next action:"]
+    for field in required_fields:
+        if field not in status:
+            fail(f"current-state field missing from STATUS.md: {field}")
+
+    if "Volume I" not in status or "《白色边缘》" not in status:
+        fail("STATUS.md does not identify Volume I / 《白色边缘》 as the current volume")
+    if "evidence-triggered" not in status:
+        fail("STATUS.md is missing the evidence-triggered maintenance boundary")
 
     queue = (ROOT / "06-审校/第一卷/第一卷-当前维护队列.md").read_text(encoding="utf-8")
     if "有证据触发的维护阶段" not in queue:
@@ -393,7 +400,7 @@ def main() -> int:
         for error in ERRORS:
             print(f"- {error}")
         return 1
-    print("PASS: source archive, project entries, chapter ranges, Markdown links, and first-volume technical boundaries")
+    print("PASS: source archive, cold-start entries, current status, project wiring, chapter ranges, Markdown links, and first-volume technical boundaries")
     return 0
 
 
