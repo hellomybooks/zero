@@ -4,10 +4,10 @@
 
 ## Machine-readable current state
 
-**Current phase:** Volume I maintenance and external review
-**Current volume:** Volume I — 《白色边缘》 / *White Edges*
-**Current target:** Protect Volume I chapters 1–36 as a reviewed manuscript candidate through evidence-triggered maintenance; do not expand it by inventing new chapters.
-**Next action:** Apply only concrete, evidence-backed fixes from external review, Canon/prose contradiction checks, continuity findings, or approved architecture work.
+**Current phase:** Volume III ARC08 staged production
+**Current volume:** Volume III — 《不存在的区域》
+**Current target:** Continue ARC08 from Chapter 88 while preserving Volume I chapters 1–36 as a protected reviewed baseline with evidence-triggered maintenance only.
+**Next action:** Establish and review Chapter 89 under Issue #8 boundaries; keep Chapter 36 untouched.
 **Review blockers:** Boundary Form payoff remains a P2 publication-level observation; precision-splitting as a recurring solution pattern and character-specific language failure remain long-range review items.
 
 ## 项目规模
@@ -15,12 +15,12 @@
 - 计划：7 卷 / 252 章 / 21 个主要篇章。
 - 第一卷《白色边缘》：第 1—36 章已完成初稿与内部审校，目前处于可持续基线与外部阅读维护阶段。
 - 第二卷《阈值之城》：第 37—72 章已保存为完整生产快照。
-- 第三卷《不存在的区域》：已保存至第 88 章创作 checkpoint；第 89 章等待外部阶段审阅后再决定。
+- 第三卷《不存在的区域》：第88章已通过外部阶段审阅，现进入 ARC08 第89章 staged production。
 - 第四—七卷：已有宏观结构，章级生产尚未完成。
 
 ## 当前工作边界
 
-当前优先级是第一卷质量、Canon 一致性和项目可接管性，而不是为了制造进度继续扩写。
+当前优先级是第三卷 ARC08 的阶段性生产，同时保护第一卷质量、Canon 一致性和已审阅的可接管基线；不为制造进度而扩写。
 
 对现有小说进行工作时：
 
