@@ -21,6 +21,6 @@ Read [`权威层级`](./凡存在者-项目/02-Canon/权威层级.md) and [`Cano
 
 ## Current story anchor
 
-The current production target is Volume I, 《白色边缘》. Chapters 1–36 form a reviewed manuscript candidate under evidence-triggered maintenance. Volume II and Volume III material is preserved as later continuity snapshots, not as an instruction to silently change Volume I.
+The current production target is Volume III ARC08, 《不存在的区域》. Chapter 89 is the current staged checkpoint awaiting external review. Chapters 1–36 remain a protected reviewed manuscript baseline under evidence-triggered maintenance; Volume II and earlier Volume III material remain continuity foundations, not permission to rewrite the first volume.
 
 For detailed character, world, magic, terminology, and continuity records, use [`凡存在者-项目/03-结构化设定/README.md`](./凡存在者-项目/03-结构化设定/README.md).

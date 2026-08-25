@@ -307,8 +307,8 @@ def check_chapter_ranges() -> None:
         ("第一卷正文", ROOT / "05-正文/第一卷", 1, 36),
         ("第二卷设计", ROOT / "04-第二卷设计/章节卡", 37, 72),
         ("第二卷正文", ROOT / "05-正文/第二卷", 37, 72),
-        ("第三卷设计", ROOT / "04-第三卷设计/章节卡", 73, 88),
-        ("第三卷正文", ROOT / "05-正文/第三卷", 73, 88),
+        ("第三卷设计", ROOT / "04-第三卷设计/章节卡", 73, 89),
+        ("第三卷正文", ROOT / "05-正文/第三卷", 73, 89),
     ]
     for label, directory, first, last in volumes:
         actual = chapter_numbers(directory)
@@ -321,7 +321,7 @@ def check_chapter_closures() -> None:
     volumes = [
         ("第一卷", ROOT / "04-第一卷设计/章节卡", ROOT / "05-正文/第一卷", ROOT / "06-审校/第一卷", 1, 36),
         ("第二卷", ROOT / "04-第二卷设计/章节卡", ROOT / "05-正文/第二卷", ROOT / "06-审校/第二卷", 37, 72),
-        ("第三卷", ROOT / "04-第三卷设计/章节卡", ROOT / "05-正文/第三卷", ROOT / "06-审校/第三卷", 73, 88),
+        ("第三卷", ROOT / "04-第三卷设计/章节卡", ROOT / "05-正文/第三卷", ROOT / "06-审校/第三卷", 73, 89),
     ]
     for label, cards, prose, audits, first, last in volumes:
         expected_numbers = set(range(first, last + 1))
