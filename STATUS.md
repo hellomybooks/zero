@@ -6,7 +6,7 @@
 
 **Current phase:** Volume III ARC08 staged production
 **Current volume:** Volume III — 《不存在的区域》
-**Current target:** Continue ARC08 from Chapter 88 while preserving Volume I chapters 1–36 as a protected reviewed baseline with evidence-triggered maintenance only.
+**Current target:** Submit the Chapter 89 checkpoint while preserving Volume I chapters 1–36 as a protected reviewed baseline with evidence-triggered maintenance only.
 **Next action:** Submit the Chapter 89 checkpoint for external review; do not continue to Chapter 90 before review.
 **Review blockers:** Boundary Form payoff remains a P2 publication-level observation; precision-splitting as a recurring solution pattern and character-specific language failure remain long-range review items.
 
